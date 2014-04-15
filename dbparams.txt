@@ -1,5 +1,0 @@
-sidausc.com
-3306
-wsdwsd_JDBCmysql
-wsdwsd_root
-wsdwsd
