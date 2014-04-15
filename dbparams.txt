@@ -1,5 +1,5 @@
-localhost
+sidausc.com
 3306
-ResultTracker
-username
-password
+wsdwsd_JDBCmysql
+wsdwsd_root
+wsdwsd
