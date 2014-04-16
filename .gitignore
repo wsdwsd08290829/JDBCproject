@@ -1,4 +1,4 @@
 *.pdf
-dbparams.txt
+*.secret
 
 
