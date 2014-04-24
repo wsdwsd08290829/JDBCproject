@@ -270,18 +270,18 @@ public class Query{
 		}
    public static void main(String[] args) throws SQLException{ // throws SQLException for stmt.close()
 				//simple parse command line
-				if(args.length != 4) usage();		
-				String params = args[0];
-				Query dbq = new Query(args[0]); 
-				if(args[1].equals("q1")){
-					dbq.solveQ1(args);
-				}else if(args[1].equals("q2")){
-					dbq.solveQ2(args);
-				}else{
-					usage();
-				}
+
         try{
-           
+						if(args.length != 4) usage();		
+					String params = args[0];
+					Query dbq = new Query(args[0]); 
+					if(args[1].equals("q1")){
+						dbq.solveQ1(args);
+					}else if(args[1].equals("q2")){
+						dbq.solveQ2(args);
+					}else{
+						usage();
+					}         
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
