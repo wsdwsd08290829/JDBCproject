@@ -73,7 +73,6 @@ public class Populate{
         }//readFileFromZip()
     }
     public void saveFileDataToTable(BufferedReader csv, String tableName) throws SQLException,IOException{
-
         PreparedStatement pstmt = null;
         try{
 
