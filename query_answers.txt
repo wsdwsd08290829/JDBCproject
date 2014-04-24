@@ -1,0 +1,45 @@
+select real_name, birthday from Players where nationality != "KR" and
+year(birthday) = 1985;
+
+select p.tag, p.real_name, p.nationality, t.team from Players as p,Teams as
+t,Members as m where p.game_race="Z" and p.player_id=m.player and m.team =
+t.team_id;
+or
+select p.tag, p.real_name, p.nationality from Players as p inner join Members as
+m on p.game_race="Z" and p.player_id=m.player join Teams as t on
+t.team_id=m.team;
+
+select tn.name, tn.region, e.prize_money from Earnings as e, Tournaments as tn
+where e.prize_money>10000 and tn.tournment_id=e.tournment order by e.prize_money
+desc;
+
+select mc.date, tn.name,concat((select tag from Players where
+mc.playerA=Players.player_id),"(",(select game_race from Players where
+mc.playerA=Players.player_id),") ", mc.scoreA,"-",mc.scoreB," ", (select tag
+from Players where mc.playerB=Players.player_id),"(",(select game_race from
+Players where mc.playerB=Players.player_id),")") as match_result from Matches_v2
+as mc, Tournaments as tn where mc.offline=1 and ((mc.scoreA=0 and mc.scoreB=4)
+or (mc.scoreA=4 and mc.scoreB=0)) and mc.tournament = tn.tournment_id;
+
+select p.tag,p.real_name, max(mb.end_date) from Members as mb,Players as p,
+Teams as tm where tm.team="ROOT Gaming" and mb.team=tm.team_id and mb.end_date
+is not null and mb.player not in (select mb.player from Members as mb where
+mb.end_date is null) and mb.player=p.player_id group by p.tag order by p.tag;
+
+select distinct Players.player_id from Players where (Players.player_id in
+(select mc.playerA as id from Matches_v2 as mc, Tournaments as tn where
+tn.tournment_id=mc.tournament and mc.scoreA>mc.scoreB and tn.region='EU') AND
+Players.player_id in (select mc.playerA as id from Matches_v2 as mc, Tournaments
+as tn where tn.tournment_id=mc.tournament and mc.scoreA>mc.scoreB and
+tn.region='AM') AND Players.player_id in (select mc.playerA as id from
+Matches_v2 as mc, Tournaments as tn where tn.tournment_id=mc.tournament and
+mc.scoreA>mc.scoreB and tn.region='KR')) or  (Players.player_id in (select
+mc.playerB as id from Matches_v2 as mc, Tournaments as tn where
+tn.tournment_id=mc.tournament and mc.scoreA<mc.scoreB and tn.region='EU') AND
+Players.player_id in (select mc.playerB as id from Matches_v2 as mc, Tournaments
+as tn where tn.tournment_id=mc.tournament and mc.scoreA<mc.scoreB and
+tn.region='AM') AND Players.player_id in (select mc.playerB as id from
+Matches_v2 as mc, Tournaments as tn where tn.tournment_id=mc.tournament and
+mc.scoreA<mc.scoreB and tn.region='KR')); //working  //slow using “in”
+
+
